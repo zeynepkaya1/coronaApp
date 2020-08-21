@@ -22,8 +22,8 @@
             </div>
           </form>
         </div>
-        <!--Liste-->
 
+        <!--Liste-->
         <table class="table table-hover scrolldown">
           <thead>
             <tr>
@@ -43,61 +43,19 @@
             </tr>
           </tbody>
         </table>
+
       </div>
     </div>
     <!--/Ülke Tablos-->
 
     <!--Harita-->
     <div class="col-8 map-section">
-      <div class="row">
-        <div class="col-9">
-          <h3><span id="ulkeadi">Dünya Geneli</span> Toplam Vaka Sayısı</h3>
-        </div>
-        <div class="col-3">
-          <select class="form-control ">
-            <option>Dünya Geneli</option>
-            <option>ABD</option>
-            <option>Brezilya</option>
-            <option>Hindistan</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row vaka-sayisi shadow p-3 mb-5 bg-white rounded">
-        <div class="row p-1">
-          <div class="col">
-            <h6 class="info">Toplam Vaka Sayısı</h6>
-            <p id="sum">11,111.111</p>
-            <p id="sum-count">+555,555</p>
-          </div>
-          <div class="col">
-            <h6 class="info">Ölüm Vaka Sayısı</h6>
-            <p id="dead">11,111.111</p>
-            <p id="dead-count">+555,555</p>
-          </div>
-          <div class="col">
-            <h6 class="info">Aktif Vaka Sayısı</h6>
-            <p id="aktif">11,111.111</p>
-            <p id="aktif-count">+555,555</p>
-          </div>
-          <div class="col">
-            <h6 class="info">İyileşen Vaka Sayısı</h6>
-            <p id="recov">11,111.111</p>
-            <p id="recov-count">+555,555</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="dunyaharitasi">
-        <div id="chartdiv"></div>
-      </div>
+      <app-map-chart></app-map-chart>
     </div>
-    <!--/ülke haritası-->
+    <!--/Harita-->
 
   </div>
 </div>
-
-<!--ikinci satır-->
 
 <div class="container">
   <div class="row">
@@ -108,17 +66,16 @@
         <h4 id="pie-baslık">Dünya Geneli Enfeksiyon Dağılımı</h4>
       </div>
       <div class="row p-3 mb-3">
-        <div id="chartdiv2"></div>
+        <app-charts></app-charts>
       </div>
     </div>
     <!--/Pie chart-->
 
     <!--Line chart-->
     <div class="col-8 line-chart shadow p-3 mb-4 bg-white rounded">
-
-      <!--Line chart-->
-      <div id="chartdiv3"></div>
+      <app-line-chart></app-line-chart>
     </div>
+    <!--/Line chart-->
+
   </div>
-  <!--/ikinci satır-->
 </div>
