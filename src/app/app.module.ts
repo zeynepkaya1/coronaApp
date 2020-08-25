@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { DataService } from './data.service';
 
 import { AppComponent } from './app.component';
 import { ChartsComponent } from './charts/charts.component';
@@ -14,9 +16,10 @@ import { LineChartComponent } from './line-chart/line-chart.component';
     LineChartComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,6 +11,8 @@ am4core.useTheme(am4themes_animated);
 // Themes end
 
 import { Model } from './model';
+import { Global, Country, RootObject } from './summary.model';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +20,21 @@ import { Model } from './model';
   styleUrls: ['./app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   model = new Model();
 
   getItems() {
     return this.model.items;
   }
 
-  constructor() { }
+  summary$: RootObject[];
+
+  constructor(private dataService: DataService) { }
+
+  ngOnInit(){
+    return this.dataService.getSummary()
+    .subscribe(data => this.summary$ = data);
+  }
 
   
 }
