@@ -4,6 +4,7 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { HttpClient } from '@angular/common/http';
 
 /* Chart code */
 // Themes begin
