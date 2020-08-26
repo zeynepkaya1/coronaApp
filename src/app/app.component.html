@@ -35,11 +35,17 @@
           </thead>
 
           <tbody>
-            <tr *ngFor="let item of getItems()">
-              <td class="korona-country">{{ item.ulke }}</td>
-              <td class="korona-value" style="color:rgb(167, 14, 14);">{{ item.vaka }}</td>
-              <td class="korona-death" style="color:rgb(124, 121, 121);">{{ item.olum }}</td>
-              <td class="korona-recovered" style="color:green;">{{ item.iyi }}</td>
+            <tr>
+              <td class="korona-country">Dünya Geneli</td>
+              <td class="korona-value" style="color:rgb(167, 14, 14);">{{ RootObject.Global.TotalConfirmed }}</td>
+              <td class="korona-death" style="color:rgb(124, 121, 121);">{{ RootObject.Global.TotalDeaths }}</td>
+              <td class="korona-recovered" style="color:green;">{{ RootObject.Global.TotalRecovered }}</td>
+            </tr>
+            <tr *ngFor="let summary of RootObject.Countries">
+              <td class="korona-country">{{ summary.Country }}</td>
+              <td class="korona-value" style="color:rgb(167, 14, 14);">{{ summary.TotalConfirmed }}</td>
+              <td class="korona-death" style="color:rgb(124, 121, 121);">{{ summary.TotalDeaths }}</td>
+              <td class="korona-recovered" style="color:green;">{{ summary.TotalRecovered }}</td>
             </tr>
           </tbody>
         </table>
@@ -50,6 +56,42 @@
 
     <!--Harita-->
     <div class="col-8 map-section">
+      <div class="row">
+        <div class="col-9">
+          <h3><span id="ulkeadi">Dünya Geneli</span> Toplam Vaka Sayısı</h3>
+        </div>
+        <div class="col-3">
+          <select class="form-control">
+            <option>Dünya Geneli</option>
+            <option *ngFor="let a of RootObject.Countries">{{ a.Country }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row vaka-sayisi shadow p-3 mb-5 bg-white rounded">
+        <div class="row p-1">
+          <div class="col">
+            <h6 class="info">Toplam Vaka Sayısı</h6>
+            <p id="sum">{{ RootObject.Global.TotalConfirmed }}</p>
+            <p id="sum-count">{{ RootObject.Global.NewConfirmed }}</p>
+          </div>
+          <div class="col">
+            <h6 class="info">Ölüm Vaka Sayısı</h6>
+            <p id="dead">{{ RootObject.Global.TotalDeaths }}</p>
+            <p id="dead-count">{{ RootObject.Global.NewDeaths }}</p>
+          </div>
+          <div class="col">
+            <h6 class="info">Aktif Vaka Sayısı</h6>
+            <p id="aktif">{{ RootObject.Global.TotalConfirmed }}</p>
+            <p id="aktif-count">{{ RootObject.Global.NewConfirmed }}</p>
+          </div>
+          <div class="col">
+            <h6 class="info">İyileşen Vaka Sayısı</h6>
+            <p id="recov">{{ RootObject.Global.TotalRecovered }}</p>
+            <p id="recov-count">{{ RootObject.Global.NewRecovered }}</p>
+          </div>
+        </div>
+      </div>
       <app-map-chart></app-map-chart>
     </div>
     <!--/Harita-->
@@ -63,7 +105,7 @@
     <!--Pie chart-->
     <div class="col-4 pie-chart shadow p-3 mb-4 bg-white rounded">
       <div class="row">
-        <h4 id="pie-baslık">Dünya Geneli Enfeksiyon Dağılımı</h4>
+        <h4 id="pie-baslik">Dünya Geneli Enfeksiyon Dağılımı</h4>
       </div>
       <div class="row p-3 mb-3">
         <app-charts></app-charts>
@@ -73,32 +115,10 @@
 
     <!--Line chart-->
     <div class="col-8 line-chart shadow p-3 mb-4 bg-white rounded">
+      <h4 id="line-baslik">Dünya Geneli Tarihsel Veri Dağılımı</h4>
       <app-line-chart></app-line-chart>
     </div>
     <!--/Line chart-->
 
   </div>
-</div>
-
-<div class="container">
-<!--Liste-->
-<table class="table table-hover scrolldown">
-  <thead>
-    <tr>
-      <th scope="col"><strong>ÜLKE</strong></th>
-      <th scope="col"><strong>VAKA</strong></th>
-      <th scope="col"><strong>ÖLÜM</strong></th>
-      <th scope="col"><strong>İYİLEŞME</strong></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let summary of summary$">
-      <td class="korona-country">{{ summary.RootObject.Country.Country }}</td>
-      <td class="korona-value" style="color:rgb(167, 14, 14);">{{ summary.Countries.TotalConfirmed }}</td>
-      <td class="korona-death" style="color:rgb(124, 121, 121);">{{ summary.Countries.TotalDeaths }}</td>
-      <td class="korona-recovered" style="color:green;">{{ summary.Countries.TotalRecovered }}</td>
-    </tr>
-  </tbody>
-</table>
 </div>

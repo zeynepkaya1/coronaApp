@@ -12,7 +12,7 @@ am4core.useTheme(am4themes_animated);
 // Themes end
 
 import { Model } from './model';
-import { Global, Country, RootObject } from './summary.model';
+import { RootObject } from './summary.model';
 import { DataService } from './data.service';
 
 @Component({
@@ -23,19 +23,19 @@ import { DataService } from './data.service';
 })
 export class AppComponent implements OnInit{
   model = new Model();
+  RootObject: any;
+  Country: String;
 
   getItems() {
     return this.model.items;
   }
 
-  summary$: RootObject[];
+  public list = [];
 
-  constructor(private dataService: DataService) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(){
-    return this.dataService.getSummary()
-    .subscribe(data => this.summary$ = data);
+    let resp = this.http.get("https://api.covid19api.com/summary");
+    resp.subscribe((data) => this.RootObject=data);
   }
-
-  
 }
