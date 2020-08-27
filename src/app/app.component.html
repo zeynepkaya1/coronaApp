@@ -9,12 +9,12 @@
           <form>
             <div class="form-row">
               <div class="col-7">
-                <input type="text" class="form-control" placeholder="Ülke ara">
+                <input type="text" class="form-control" placeholder="Ülke ara" name="search" [(ngModel)]="search">
               </div>
               <div class="col-5">
                 <select class="form-control">
                   <option>Sırala</option>
-                  <option>Vaka Sayısına Göre</option>
+                  <option [appSort]="RootObject.Countries" data-order="desc" data-name="TotalConfirmed">Vaka Sayısına Göre</option>
                   <option>Ölüm Sayısına Göre</option>
                   <option>İyileşen Sayısına Göre</option>
                 </select>
@@ -27,10 +27,10 @@
         <table class="table table-hover scrolldown">
           <thead>
             <tr>
-              <th scope="col"><strong>ÜLKE</strong></th>
-              <th scope="col"><strong>VAKA</strong></th>
-              <th scope="col"><strong>ÖLÜM</strong></th>
-              <th scope="col"><strong>İYİLEŞME</strong></th>
+              <th scope="col" [appSort]="RootObject.Countries" data-order="desc" data-name="Country"><strong>ÜLKE</strong></th>
+              <th scope="col" [appSort]="RootObject.Countries" data-order="desc" data-name="TotalConfirmed"><strong>VAKA</strong></th>
+              <th scope="col" [appSort]="RootObject.Countries" data-order="desc" data-name="TotalDeaths"><strong>ÖLÜM</strong></th>
+              <th scope="col" [appSort]="RootObject.Countries" data-order="desc" data-name="TotalRecovered"><strong>İYİLEŞME</strong></th>
             </tr>
           </thead>
 
@@ -41,7 +41,7 @@
               <td class="korona-death" style="color:rgb(124, 121, 121);">{{ RootObject.Global.TotalDeaths }}</td>
               <td class="korona-recovered" style="color:green;">{{ RootObject.Global.TotalRecovered }}</td>
             </tr>
-            <tr *ngFor="let summary of RootObject.Countries">
+            <tr *ngFor="let summary of RootObject.Countries | filter:search">
               <td class="korona-country">{{ summary.Country }}</td>
               <td class="korona-value" style="color:rgb(167, 14, 14);">{{ summary.TotalConfirmed }}</td>
               <td class="korona-death" style="color:rgb(124, 121, 121);">{{ summary.TotalDeaths }}</td>
@@ -58,12 +58,12 @@
     <div class="col-8 map-section">
       <div class="row">
         <div class="col-9">
-          <h3><span id="ulkeadi">Dünya Geneli</span> Toplam Vaka Sayısı</h3>
+          <h3><span id="ulkeadi">{{ SelectedCount.Country }}</span> Toplam Vaka Sayısı</h3>
         </div>
         <div class="col-3">
-          <select class="form-control">
+          <select class="form-control" [(ngModel)]="SelectedCount">
             <option>Dünya Geneli</option>
-            <option *ngFor="let a of RootObject.Countries">{{ a.Country }}</option>
+            <option *ngFor="let array of RootObject.Countries" [ngValue]="array">{{ array.Country }}</option>
           </select>
         </div>
       </div>
@@ -72,23 +72,23 @@
         <div class="row p-1">
           <div class="col">
             <h6 class="info">Toplam Vaka Sayısı</h6>
-            <p id="sum">{{ RootObject.Global.TotalConfirmed }}</p>
-            <p id="sum-count">{{ RootObject.Global.NewConfirmed }}</p>
+            <p id="sum">{{ SelectedCount.TotalConfirmed }}</p>
+            <p id="sum-count">+{{ SelectedCount.NewConfirmed }}</p>
           </div>
           <div class="col">
             <h6 class="info">Ölüm Vaka Sayısı</h6>
-            <p id="dead">{{ RootObject.Global.TotalDeaths }}</p>
-            <p id="dead-count">{{ RootObject.Global.NewDeaths }}</p>
+            <p id="dead">{{ SelectedCount.TotalDeaths }}</p>
+            <p id="dead-count">+{{ SelectedCount.NewDeaths }}</p>
           </div>
           <div class="col">
             <h6 class="info">Aktif Vaka Sayısı</h6>
-            <p id="aktif">{{ RootObject.Global.TotalConfirmed }}</p>
-            <p id="aktif-count">{{ RootObject.Global.NewConfirmed }}</p>
+            <p id="aktif">{{ SelectedCount.TotalConfirmed }}</p>
+            <p id="aktif-count">+{{ SelectedCount.NewConfirmed }}</p>
           </div>
           <div class="col">
             <h6 class="info">İyileşen Vaka Sayısı</h6>
-            <p id="recov">{{ RootObject.Global.TotalRecovered }}</p>
-            <p id="recov-count">{{ RootObject.Global.NewRecovered }}</p>
+            <p id="recov">{{ SelectedCount.TotalRecovered }}</p>
+            <p id="recov-count">+{{SelectedCount.NewRecovered }}</p>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
 
     <!--Line chart-->
     <div class="col-8 line-chart shadow p-3 mb-4 bg-white rounded">
-      <h4 id="line-baslik">Dünya Geneli Tarihsel Veri Dağılımı</h4>
+      <h4 id="line-baslik"><span>{{ SelectedCount.Country }}</span> Tarihsel Veri Dağılımı</h4>
       <app-line-chart></app-line-chart>
     </div>
     <!--/Line chart-->
